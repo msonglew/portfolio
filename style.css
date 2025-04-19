@@ -1,3 +1,8 @@
+html {
+  color-scheme: value;
+  
+}
+
 body {
   /* Set line height to 1.5 times the font size
         and use the OS’s UI font as the website font
@@ -21,7 +26,8 @@ nav {
   margin-bottom: 15px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: oklch(80% 3% 200);
+  --border-color: oklch(50% 10% 200 / 40%);
+  border-bottom-color: var(--border-color);
 
   ul {
     display: contents;
@@ -45,7 +51,7 @@ a {
 .current {
   border-bottom-width: 5px;
   border-bottom-style: solid;
-  border-bottom-color: oklch(80% 3% 200);
+  border-bottom-color: var(--border-color);
   padding-bottom: 3px;
 
 }
@@ -55,27 +61,9 @@ a:hover {
   border-bottom-style: solid;
   border-bottom-color: var(--color-accent);
   padding-bottom: 3px;
-  background-color:oklch(from var(--color-accent) 95% 5% h)
+  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
   
 }
-
-/* input {
-  font: inherit;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 15px;
-
-}
-
-textarea {
-  font: inherit;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 15px;
-
-} */
 
 button {
   font: inherit;
@@ -157,4 +145,20 @@ section {
     display: flex;
     justify-content: flex-end;
   }
+}
+
+.color-scheme {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  display: flex;
+  font: 80%/1.5 system-ui;
+
+  
+
+  select {
+    font: 90%/1.5 system-ui;
+  }
+
 }
