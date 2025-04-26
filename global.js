@@ -70,11 +70,54 @@ select.addEventListener('input', function (event) {
 if (localStorage.colorScheme) {
     document.documentElement.style.setProperty('color-scheme', localStorage.colorScheme);
     select.value = localStorage.colorScheme;
-}
+};
 
+// PROJECTS
 
+export async function fetchJSON(url) {
+    try {
+      // Fetch the JSON file from the given URL
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch projects: ${response.statusText}`);
+      };
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching or parsing JSON data:', error);
+    };
+};
 
+export function renderProjects(project, containerElement, headingLevel = 'h2') {
+    // write javascript that will allow dynamic heading levels based on previous function
+    // project is html element containing all projects
+    // containerElement is html element with class '.projects'
 
+    containerElement.innerHTML = '';
+    for (let proj of project) {
+        const article = document.createElement('article');
+        const heading = document.createElement(headingLevel);
+        heading.textContent = proj.title;
 
+        const img = document.createElement('img');
+        img.src = proj.image;
+        img.alt = proj.title;
 
+        const description = document.createElement('p');
+        description.textContent = proj.description;
+
+        article.appendChild(heading);
+        article.appendChild(img);
+        article.appendChild(description);
+
+        containerElement.appendChild(article);
+    };
+    return containerElement
+};
+
+// 
+
+export function fetchGithubData(username) {
+    return fetchJSON(`https://api.github.com/users/${username}`);
+};
 

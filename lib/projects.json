@@ -1,0 +1,75 @@
+[
+    {
+        "title": "Project 1: Expository Visualization",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "This visualization is a histogram with bin specific color encoding. Food items from the major grocers (Whole Foods, Target, and Walmart) are aggregated by the feature ‘price percal’ (price per calorie) to make a histogram. The average of the feature ‘FPro’ (Food Processing Score, 0 (minimally processed) to 1 (highly processed)) of each bin is encoded by color."
+    },
+    {
+        "title": "Project 2: Deceptive Visualization",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Two visualizations with opposing perceptions. Perception 1: California against abortions in comparison to other states based on change in abortion providers. Perception opp1: california for abortion in comparison to other states based on number of abortion providers."
+    },
+    {
+        "title": "Project 3: TBD",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Repellat sint alias modi quos inventore odio excepturi aliquam perferendis perspiciatis voluptatibus, velit nihil hic impedit eligendi, facilis enim animi aspernatur. Ducimus et facere repellat provident deleniti dolor quo voluptatem!"
+    },
+    {
+        "title": "Project 4:TBD",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Totam dicta id, odio, ducimus provident autem rerum alias dolorum voluptatibus sunt labore tempora error tempore quibusdam aspernatur impedit molestiae excepturi. Voluptatibus blanditiis ex molestias quod, quae commodi minus voluptates."
+    },
+    {
+        "title": "NCAA Softball Big West Conference Simulation",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "A simulation on UC San Diego's NCAA Division 1 2025 softball team, their probability of making into the top 6 in the conference to go to the inagural Big West Conference Softball tournament."
+    },
+    {
+        "title": "Pitcher 1 vs. Pitcher 2",
+        "year": "2025",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Comparing game success between two pitchers based on their appearance and starting records. Simulate future success based on their historical data."
+    },
+    {
+        "title": "Architecto voluptatem cum vitae!",
+        "year": "2020",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Sed non dignissimos eveniet incidunt. Assumenda excepturi sint quos nobis ducimus enim sequi ut magnam velit impedit repudiandae odit, aliquam debitis doloremque, cum deleniti laborum animi sunt. Quaerat, dolore veritatis."
+    },
+    {
+        "title": "Blanditiis veniam dicta voluptas!",
+        "year": "2023",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Debitis unde facere possimus itaque, eligendi vel odio, rerum quis cumque accusantium ex nostrum beatae ut vero molestiae dicta! Optio blanditiis soluta perspiciatis qui cupiditate harum, repudiandae quam impedit eius?"
+    },
+    {
+        "title": "Aperiam nihil officia provident.",
+        "year": "2022",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Voluptate iure facilis veniam provident debitis id, atque quod alias officia assumenda dicta fugiat, ea odit non cum, deleniti tempora. Repudiandae earum possimus eveniet tenetur. Magnam reiciendis omnis corporis culpa?"
+    },
+    {
+        "title": "Nostrum voluptatum accusantium modi.",
+        "year": "2017",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Dolores, quibusdam praesentium. Reprehenderit neque repudiandae sunt sapiente consequatur corporis officia eos delectus, adipisci ad hic distinctio facilis odio, deserunt, exercitationem necessitatibus minima pariatur quae quam ratione harum itaque. Maiores."
+    },
+    {
+        "title": "Maxime ullam deleniti vero.",
+        "year": "2018",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Illo eaque, cumque voluptas vero minima assumenda corrupti natus voluptatum doloremque, suscipit autem porro labore sequi nostrum? Ex quas a quidem rerum quibusdam quis praesentium? Amet quae consequatur velit explicabo?"
+    },
+    {
+        "title": "Iure, pariatur repudiandae. Possimus.",
+        "year": "2021",
+        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+        "description": "Eveniet vero obcaecati illum possimus? Eum, soluta ad repudiandae sunt aperiam numquam excepturi quos officiis! Excepturi aspernatur neque voluptate consectetur, voluptatum sit exercitationem natus architecto quod, ratione ab accusantium debitis!"
+    } 
+]
+
