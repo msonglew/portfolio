@@ -106,11 +106,20 @@ export function renderProjects(project, containerElement, headingLevel = 'h2') {
         const description = document.createElement('p');
         description.textContent = proj.description;
 
+        const year = document.createElement('p');
+        year.textContent = 'c. ' + proj.year;
+
+        const desc_year = document.createElement('div');
+        desc_year.appendChild(description);
+        desc_year.appendChild(year);
+
         article.appendChild(heading);
         article.appendChild(img);
-        article.appendChild(description);
+        article.appendChild(desc_year);
 
         containerElement.appendChild(article);
+
+        console.log(article);
     };
     return containerElement
 };
