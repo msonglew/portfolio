@@ -118,8 +118,6 @@ export function renderProjects(project, containerElement, headingLevel = 'h2') {
         article.appendChild(desc_year);
 
         containerElement.appendChild(article);
-
-        console.log(article);
     };
     return containerElement
 };
