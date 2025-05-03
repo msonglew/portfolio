@@ -41,21 +41,58 @@ function renderPieChart(projectsGiven) {
     // update paths and legends
     let colors = d3.scaleOrdinal(d3.schemeTableau10);
 
+    // highlight selected wedge
+    let selectedIndex = -1;
+
+    let svg = d3.select('svg');
+    let legend = d3.select('.legend');
+
     newArcs.forEach((arc, indx) => {
+        
         // fill in step for appending path to svg using D3
-        d3.select('svg')
+        svg
             .append('path')
             .attr('d', arc)
             .attr('fill', colors(indx))
+            .on('click', () => {
+                selectedIndex = selectedIndex === indx ? -1 : indx;
+        
+                svg
+                  .selectAll('path')
+                  .attr('class', (_, idx) => (
+                    // filter idx to find correct pie slice and apply CSS from above
+                    idx === selectedIndex ? 'selected' : ''
+                ));
+        
+                legend
+                  .selectAll('li')
+                  .attr('class', (_, idx) => (
+                    // filter idx to find correct legend and apply CSS from above
+                    idx === selectedIndex ? 'selected' : ''
+                ));
+
+                if (selectedIndex === -1) {
+                    renderProjects(projectsGiven, projectsContainer, 'h2'); // BUG WAS HERE
+                } else {
+                    // filter projects and project them onto webpage
+                    const selectedLabel = newData[selectedIndex].label;
+                    const filtered = projectsGiven.filter(p => p.year === selectedLabel); // BUG WAS HERE
+                    console.log(filtered);
+                    renderProjects(filtered, projectsContainer, 'h2');
+                };
+
+                console.log(selectedIndex);
+            });
     });
 
-    let legend = d3.select('.legend');
     newData.forEach((d, idx) => {
         legend
         .append('li')
         .attr('style', `--color:${colors(idx)}`) // set the style attribute while passing in parameters
         .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`); // set the inner html of <li>
     });
+
+    
 }
   
 // Call this function on page load
@@ -72,9 +109,9 @@ searchInput.addEventListener('input', (event) => {
         let values = Object.values(project).join('\n').toLowerCase();
         return values.includes(query.toLowerCase());
     });
+
+    console.log(filteredProjects)
     // re-render legends and pie chart when event triggers
     renderProjects(filteredProjects, projectsContainer, 'h2');
     renderPieChart(filteredProjects);
 });
-
-

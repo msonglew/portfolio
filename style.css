@@ -217,3 +217,26 @@ dl {
   gap: 2em;
 
 }
+
+&:has(path:hover) {
+  path:not(:hover) {
+    opacity: 0.5;
+    transition: 300ms;
+  }
+}
+
+path {
+  cursor: pointer;
+}
+
+.selected {
+  --color: oklch(60% 45% 0) !important;
+
+  &:is(path) {
+    fill: var(--color);
+  }
+}
+
+.searchBar {
+  margin-bottom: 2em;
+}
