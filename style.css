@@ -240,3 +240,24 @@ path {
 .searchBar {
   margin-bottom: 2em;
 }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1em;
+  margin-bottom: 2em;
+
+  dt {
+    color: grey;
+    font-size: 100%;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  dd {
+    font-size: 150%;
+    text-align: left;
+
+  }
+
+}
