@@ -98,15 +98,23 @@ function renderScatterPlot(data, commits) {
     
     const yScale = d3.scaleLinear().domain([0, 24]).range([height, 0]);
 
+    const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
+    const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
+
+    const rScale = d3
+    .scaleSqrt()
+    .domain([minLines, maxLines])
+    .range([5, 30]); // adjust these values based on your experimentation
+
     const dots = svg.append('g').attr('class', 'dots');
 
     dots
     .selectAll('circle')
-    .data(commits)
+    .data(sortedCommits)
     .join('circle')
     .attr('cx', (d) => xScale(d.datetime))
     .attr('cy', (d) => yScale(d.hourFrac))
-    .attr('r', 5)
+    .attr('r', (d) => rScale(d.totalLines))
     .attr('fill', 'steelblue')
     .on('mouseenter', (event, commit) => {
         renderTooltipContent(commit);
