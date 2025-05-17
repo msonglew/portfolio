@@ -115,9 +115,26 @@ export function renderProjects(project, containerElement, headingLevel = 'h2') {
         desc_year.appendChild(description);
         desc_year.appendChild(year);
 
+        if (proj.url) {
+            const link = document.createElement('a');
+            link.href = proj.url;
+            link.textContent = 'View Project';
+            link.target = '_blank';
+            desc_year.appendChild(link);
+        }
+
+        // const link = document.createElement('a');
+        // link.href = proj.url;
+        // link.textContent = 'View Project';
+
+        
+        
+
         article.appendChild(heading);
         article.appendChild(img);
+        
         article.appendChild(desc_year);
+        
 
         containerElement.appendChild(article);
     };

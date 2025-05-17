@@ -1,5 +1,12 @@
 [
     {
+        "title": "🚴🏼‍♀️ Boston Bike Sox",
+        "year": "2025",
+        "image": "../assets/bike_sox.png",
+        "description": "This is an interactive visualization focusing on bike routes and traffic in the Boston area.",
+        "url": "https://msonglew.github.io/boston-bike-sox/"
+    },
+    {
         "title": "Project 1: Expository Visualization",
         "year": "2025",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",
