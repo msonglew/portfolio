@@ -345,7 +345,7 @@ time {
 
 .loc {
   aspect-ratio: 1;
-  background: steelblue;
+  background: var(--color);
   height: 5px;
   width: 5px;
   border-radius: 50%;
