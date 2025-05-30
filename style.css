@@ -164,17 +164,22 @@ section {
 
 }
 
-dl {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  
-  dt {
-    grid-row: 1;
+#stats {
+  dl {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    
   }
-  dd {
-    grid-row: 2;
-  }
+
 }
+
+#stats dt {
+  grid-row: 1;
+}
+#stats dd {
+  grid-row: 2;
+}
+
 
 #projects-plot {
   max-width: 20em;
@@ -360,3 +365,25 @@ time {
   margin-left: auto;
 }
 
+#files {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+
+  > div {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+  }
+
+  dt {
+    grid-column: 1;
+    grid-row: 1;
+
+  }
+
+  dd {
+    grid-column: 2;
+    grid-row:1;
+
+  }
+}

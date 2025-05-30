@@ -72,7 +72,6 @@ function renderCommitInfo(data, commits) {
     );
     const averageFileLength = d3.mean(fileLengths, (d) => d[1]);
 
-
     // Add average file length
     dl.append('dt').text('Average file length');
     dl.append('dd').text(averageFileLength);
@@ -307,6 +306,47 @@ d3.select('#commit-time')
       timeStyle: "short",
     }));
 
+updateFileDisplay(commits);
+
+function updateCommitInfo(data, commits) {
+  const div = d3.select('#stats');
+
+  div.selectAll('*').remove();
+
+  const dl = div.append('dl').attr('class', 'stats');
+
+  // Add total commits
+  dl.append('dt').text('Total commits');
+  dl.append('dd').text(commits.length);
+
+  // Add total LOC
+  dl.append('dt').html('Total <abbr title="Lines of code">LOC</abbr>');
+  dl.append('dd').text(data.length);
+
+  // Add number of files
+  dl.append('dt').text('Files');
+  dl.append('dd').text(d3.groups(data, (d) => d.file).length);
+
+  // Add Longest Line
+  dl.append('dt').text('Longest line');
+  dl.append('dd').text(d3.max(data, (d) => d.length));
+
+  // Add max lines
+  dl.append('dt').text('Max lines');
+  dl.append('dd').text(d3.max(commits, (d) => d.totalLines));
+
+  const fileLengths = d3.rollups(
+      data,
+      (v) => d3.max(v, (v) => v.line),
+      (d) => d.file,
+  );
+  const averageFileLength = d3.mean(fileLengths, (d) => d[1]);
+
+  // Add average file length
+  dl.append('dt').text('Average file length');
+  dl.append('dd').text(averageFileLength);
+};
+
 function onTimeSliderChange() {
   d3.select('#commit-progress').on('input', function() {
     commitProgress = +this.value;
@@ -321,10 +361,11 @@ function onTimeSliderChange() {
     filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
 
     updateScatterPlot(data, filteredCommits);
+    updateFileDisplay(filteredCommits);
+    updateCommitInfo(data, filteredCommits);
 
   });
 
-  
 };
 
 function updateScatterPlot(data, commits) {
@@ -382,5 +423,30 @@ function updateScatterPlot(data, commits) {
 
 onTimeSliderChange();
 
+function updateFileDisplay(filteredCommits) {
+
+  let lines = filteredCommits.flatMap((d) => d.lines);
+  let files = d3
+    .groups(lines, (d) => d.file)
+    .map(([name, lines]) => {
+      return { name, lines };
+  });
+  let filesContainer = d3
+    .select('#files')
+    .selectAll('div')
+    .data(files, (d) => d.name)
+    .join(
+      // This code only runs when the div is initially rendered
+      (enter) =>
+        enter.append('div').call((div) => {
+          div.append('dt').append('code');
+          div.append('dd');
+        }),
+  );
+
+  // This code updates the div info
+  filesContainer.select('dt > code').text((d) => d.name);
+  filesContainer.select('dd').text((d) => `${d.lines.length} lines`);
+};
 
 
