@@ -42,40 +42,29 @@ function processCommits(data) {
 }
 
 function renderCommitInfo(data, commits) {
-    // Create the dl element
-    const dl = d3.select('#stats').append('dl').attr('class', 'stats');
+  // Create the dl element
+  const dl = d3.select('#stats').append('dl').attr('class', 'stats');
 
-    // Add total commits
-    dl.append('dt').text('Total commits');
-    dl.append('dd').text(commits.length);
-  
-    // Add total LOC
-    dl.append('dt').html('Total <abbr title="Lines of code">LOC</abbr>');
-    dl.append('dd').text(data.length);
-  
-    // Add number of files
-    dl.append('dt').text('Files');
-    dl.append('dd').text(d3.groups(data, (d) => d.file).length);
+  const addStat = (dtText, ddText) => {
+    const wrapper = dl.append('div');
+    wrapper.append('dt').html(dtText);
+    wrapper.append('dd').text(ddText);
+  };
 
-    // Add Longest Line
-    dl.append('dt').text('Longest line');
-    dl.append('dd').text(d3.max(data, (d) => d.length));
+  addStat('Total commits', commits.length);
+  addStat('Total <abbr title="Lines of code">LOC</abbr>', data.length);
+  addStat('Files', d3.groups(data, (d) => d.file).length);
+  addStat('Longest line', d3.max(data, (d) => d.length));
+  addStat('Max lines', d3.max(commits, (d) => d.totalLines));
 
-    // Add max lines
-    dl.append('dt').text('Max lines');
-    dl.append('dd').text(d3.max(commits, (d) => d.totalLines));
+  const fileLengths = d3.rollups(
+    data,
+    (v) => d3.max(v, (v) => v.line),
+    (d) => d.file,
+  );
+  const averageFileLength = d3.mean(fileLengths, (d) => d[1]);
 
-    const fileLengths = d3.rollups(
-        data,
-        (v) => d3.max(v, (v) => v.line),
-        (d) => d.file,
-    );
-    const averageFileLength = d3.mean(fileLengths, (d) => d[1]);
-
-    // Add average file length
-    dl.append('dt').text('Average file length');
-    dl.append('dd').text(averageFileLength);
-
+  addStat('Average file length', averageFileLength);
 }
 
 let xScale
@@ -315,36 +304,26 @@ function updateCommitInfo(data, commits) {
 
   const dl = div.append('dl').attr('class', 'stats');
 
-  // Add total commits
-  dl.append('dt').text('Total commits');
-  dl.append('dd').text(commits.length);
+  const addStat = (dtText, ddText) => {
+    const wrapper = dl.append('div');
+    wrapper.append('dt').html(dtText);
+    wrapper.append('dd').text(ddText);
+  };
 
-  // Add total LOC
-  dl.append('dt').html('Total <abbr title="Lines of code">LOC</abbr>');
-  dl.append('dd').text(data.length);
-
-  // Add number of files
-  dl.append('dt').text('Files');
-  dl.append('dd').text(d3.groups(data, (d) => d.file).length);
-
-  // Add Longest Line
-  dl.append('dt').text('Longest line');
-  dl.append('dd').text(d3.max(data, (d) => d.length));
-
-  // Add max lines
-  dl.append('dt').text('Max lines');
-  dl.append('dd').text(d3.max(commits, (d) => d.totalLines));
+  addStat('Total commits', commits.length);
+  addStat('Total <abbr title="Lines of code">LOC</abbr>', data.length);
+  addStat('Files', d3.groups(data, (d) => d.file).length);
+  addStat('Longest line', d3.max(data, (d) => d.length));
+  addStat('Max lines', d3.max(commits, (d) => d.totalLines));
 
   const fileLengths = d3.rollups(
-      data,
-      (v) => d3.max(v, (v) => v.line),
-      (d) => d.file,
+    data,
+    (v) => d3.max(v, (v) => v.line),
+    (d) => d.file,
   );
   const averageFileLength = d3.mean(fileLengths, (d) => d[1]);
 
-  // Add average file length
-  dl.append('dt').text('Average file length');
-  dl.append('dd').text(averageFileLength);
+  addStat('Average file length', averageFileLength);
 };
 
 function onTimeSliderChange() {
@@ -446,7 +425,12 @@ function updateFileDisplay(filteredCommits) {
 
   // This code updates the div info
   filesContainer.select('dt > code').text((d) => d.name);
-  filesContainer.select('dd').text((d) => `${d.lines.length} lines`);
+  filesContainer
+    .select('dd')
+    .selectAll('div')
+    .data((d) => d.lines)
+    .join('div')
+    .attr('class', 'loc');
 };
 
 

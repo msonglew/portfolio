@@ -156,30 +156,11 @@ section {
   display: flex;
   font: 80%/1.5 system-ui;
 
-  
-
   select {
     font: 90%/1.5 system-ui;
   }
 
 }
-
-#stats {
-  dl {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    
-  }
-
-}
-
-#stats dt {
-  grid-row: 1;
-}
-#stats dd {
-  grid-row: 2;
-}
-
 
 #projects-plot {
   max-width: 20em;
@@ -258,11 +239,13 @@ path {
     font-size: 100%;
     text-align: left;
     text-transform: uppercase;
+    grid-row: 1;
   }
 
   dd {
     font-size: 150%;
     text-align: left;
+    grid-row: 2;
 
   }
 
@@ -356,13 +339,36 @@ circle.selected {
   animation: marching-ants 2s linear infinite;
 }
 
-div {
-  flex: 1;
-  align-items: baseline;
-}
-
 time {
   margin-left: auto;
+}
+
+.loc {
+  aspect-ratio: 1;
+  background: steelblue;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+
+}
+
+dd {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  align-content: start;
+  gap: 0.15em;
+  padding-top: 0.6em;
+  margin-left: 0;
+}
+
+dt small {
+  display: block;
+  font-size: 0.8em;
+  opacity: 0.6;
 }
 
 #files {
@@ -374,16 +380,16 @@ time {
     display: grid;
     grid-template-columns: subgrid;
   }
+}
 
-  dt {
+#files dt {
     grid-column: 1;
     grid-row: 1;
 
-  }
+}
 
-  dd {
+#files dd {
     grid-column: 2;
     grid-row:1;
 
-  }
 }
