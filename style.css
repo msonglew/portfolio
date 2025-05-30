@@ -323,6 +323,10 @@ circle {
   transform-origin: center;
   transform-box: fill-box;
   fill-opacity: 0.6;
+
+  @starting-style {
+    r: 0;
+  }
 }
 
 circle:hover {
