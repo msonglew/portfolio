@@ -277,8 +277,6 @@ function renderLanguageBreakdown(selection) {
           `;
     }
 }
-  
-
 
 let data = await loadData();
 let commits = processCommits(data);
@@ -287,5 +285,39 @@ renderCommitInfo(data, commits);
 renderScatterPlot(data, commits);
 createBrushSelector(d3.select('#chart svg'));
 
+//////////////////////////////
 
+let commitProgress = 100;
+let timeScale = d3
+  .scaleTime()
+  .domain([
+    d3.min(commits, (d) => d.datetime),
+    d3.max(commits, (d) => d.datetime),
+  ])
+  .range([0, 100]);
+
+let commitMaxTime = timeScale.invert(commitProgress);
+d3.select('#commit-time')
+  .text(commitMaxTime.toLocaleString('en-US', {
+      dateStyle: "long",
+      timeStyle: "short",
+    }));
+
+function onTimeSliderChange() {
+  d3.select('#commit-progress')
+    .on('input', function() {
+      commitProgress = +this.value;
+      commitMaxTime = timeScale.invert(commitProgress);
+
+      d3.select('#commit-time')
+        .text(commitMaxTime.toLocaleString('en-US', {
+          dateStyle: "long",
+          timeStyle: "short",
+        }))
+
+    });
+
+};
+
+onTimeSliderChange();
 

@@ -347,3 +347,12 @@ circle.selected {
   animation: marching-ants 2s linear infinite;
 }
 
+div {
+  flex: 1;
+  align-items: baseline;
+}
+
+time {
+  margin-left: auto;
+}
+
