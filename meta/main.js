@@ -14,31 +14,35 @@ async function loadData() {
 }
 
 function processCommits(data) {
-    return d3
-      .groups(data, (d) => d.commit)
-      .map(([commit, lines]) => {
-        let first = lines[0];
-        let { author, date, time, timezone, datetime } = first;
-        let ret = {
-          id: commit,
-          url: 'https://github.com/vis-society/lab-7/commit/' + commit,
-          author,
-          date,
-          time,
-          timezone,
-          datetime,
-          hourFrac: datetime.getHours() + datetime.getMinutes() / 60,
-          totalLines: lines.length,
-        };
-  
-        Object.defineProperty(ret, 'lines', {
-          value: lines,
-          // What other options do we need to set?
-          // Hint: look up configurable, writable, and enumerable
-        });
-  
-        return ret;
+  const commits = d3
+    .groups(data, (d) => d.commit)
+    .map(([commit, lines]) => {
+      let first = lines[0];
+      let { author, date, time, timezone, datetime } = first;
+      let ret = {
+        id: commit,
+        url: 'https://github.com/vis-society/lab-7/commit/' + commit,
+        author,
+        date,
+        time,
+        timezone,
+        datetime,
+        hourFrac: datetime.getHours() + datetime.getMinutes() / 60,
+        totalLines: lines.length,
+      };
+
+      Object.defineProperty(ret, 'lines', {
+        value: lines,
+        // What other options do we need to set?
+        // Hint: look up configurable, writable, and enumerable
       });
+
+      return ret;
+    });
+
+  return commits.sort((a, b) => a.datetime - b.datetime);
+    
+    
 }
 
 function renderCommitInfo(data, commits) {
@@ -437,5 +441,55 @@ function updateFileDisplay(filteredCommits) {
     .attr('class', 'loc')
     .attr('style', (d) => `--color: ${colors(d.type)}`);
 };
+
+d3.select('#scatter-story')
+  .selectAll('.step')
+  .data(commits)
+  .join('div')
+  .attr('class', 'step')
+  .html(
+    (d, i) => `
+		On ${d.datetime.toLocaleString('en', {
+      dateStyle: 'full',
+      timeStyle: 'short',
+    })},
+		I made <a href="${d.url}" target="_blank">${
+      i > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'
+    }</a>.
+		I edited ${d.totalLines} lines across ${
+      d3.rollups(
+        d.lines,
+        (D) => D.length,
+        (d) => d.file,
+      ).length
+    } files.
+		Then I looked over all I had made, and I saw that it was very good.
+	`,
+);
+
+import scrollama from 'https://cdn.jsdelivr.net/npm/scrollama@3.2.0/+esm';
+
+function onStepEnter(response) {
+  console.log(response.element.__data__.datetime);
+
+  const currentDatetime = response.element.__data__.datetime;
+
+  commitMaxTime = currentDatetime;
+
+  filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
+
+  updateScatterPlot(data, filteredCommits);
+  updateFileDisplay(filteredCommits);
+  updateCommitInfo(data, filteredCommits);
+
+}
+
+const scroller = scrollama();
+scroller
+  .setup({
+    container: '#scrolly-1',
+    step: '#scrolly-1 .step',
+  })
+  .onStepEnter(onStepEnter);
 
 
